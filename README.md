@@ -4,13 +4,14 @@ This project is a simple FastAPI learning workspace focused on building and test
 
 ## Project contents
 
-- `fastapi_theory.ipynb` — notebook with FastAPI theory, examples, and experiments
-- `fastapi_theory@main.py` — standalone FastAPI application example
+- `fastapi_theory.ipynb`[fastapi_theory](notebooks/fastapi_theory@main.py)  — notebook with FastAPI theory, examples, and experiments
+- `fastapi_theory@main.py`[fastapi_theory_main](notebooks/fastapi_theory@main.py) — standalone FastAPI application example
 - `app/` — app package folder for organizing project code
 - `notebooks/` — notebook files
 - `data/` — datasets or sample input files
 - `docs/` — notes and documentation
 - `tests/` — test files
+
 
 ## Setup
 
