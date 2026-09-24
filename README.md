@@ -1,57 +1,102 @@
-# FastAPI Notes
+# Drug Interaction API
 
-This project is a simple FastAPI learning workspace focused on building and testing API endpoints for a drug interaction example.
+This project is a small FastAPI learning app for testing drug-related endpoints and exploring request validation, query parameters, and dependency injection.
 
-## Project contents
+## Live API
 
-- `fastapi_theory.ipynb`[fastapi_theory](notebooks/fastapi_theory.ipynb)  — notebook with FastAPI theory, examples, and experiments
-- `fastapi_theory@main.py`[fastapi_theory_main](notebooks/fastapi_theory@main.py) — standalone FastAPI application example
-- `app/` — app package folder for organizing project code
-- `notebooks/` — notebook files
-- `data/` — datasets or sample input files
-- `docs/` — notes and documentation
-- `tests/` — test files
+Base URL:
 
+https://drug-interaction-api-mehu.onrender.com/
 
-## Setup
+Swagger docs:
 
-```bash
-pip install fastapi uvicorn pydantic
-```
+https://drug-interaction-api-mehu.onrender.com/docs
 
-## Run the API
+Redoc docs:
 
-From the project root:
+https://drug-interaction-api-mehu.onrender.com/redoc
 
-```bash
-uvicorn fastapi_theory@main:app --reload
-```
+## Project structure
 
-If you want to run the app from a package module instead, use:
+- [app/main.py](app/main.py) — FastAPI application
+- [fastapi_theory.ipynb](fastapi_theory.ipynb) — notebook notes and examples
+- [fastapi_theory@main.py](fastapi_theory@main.py) — original standalone script version
+- [data](data) — sample data folder
+- [docs](docs) — documentation notes
+- [tests](tests) — future tests
+
+## Local setup
 
 ```bash
+pip install -r requirements.txt
 uvicorn app.main:app --reload
 ```
 
-## Example routes
-
-The sample app includes routes such as:
-
-- `/` — home endpoint
-- `/drugs` — list all drugs
-- `/drugs/{drug_name}` — get a specific drug
-- `/search?name=Aspirin` — search by query parameter
-- `/check-interaction` — POST request to check drug interaction
-- `/interactions/{drug_name}` — fetch interaction records
-- `/project` — dependency-based project metadata
-
-## Accessing the API docs
-
-Once the server is running, open:
+Then open:
 
 - http://127.0.0.1:8000/docs
 - http://127.0.0.1:8000/redoc
 
+## Sample requests
+
+### 1) Home endpoint
+
+```bash
+curl https://drug-interaction-api-mehu.onrender.com/
+```
+
+### 2) List all drugs
+
+```bash
+curl https://drug-interaction-api-mehu.onrender.com/drugs
+```
+
+### 3) Search drugs
+
+```bash
+curl "https://drug-interaction-api-mehu.onrender.com/search?name=Aspirin&limit=5"
+```
+
+### 4) Get interactions for a specific drug
+
+```bash
+curl https://drug-interaction-api-mehu.onrender.com/interactions/Aspirin
+```
+
+### 5) Check a drug interaction request
+
+```bash
+curl -X POST https://drug-interaction-api-mehu.onrender.com/check-interaction \
+  -H "Content-Type: application/json" \
+  -d '{"drug_a":"Aspirin","drug_b":"Warfarin"}'
+```
+
+### 6) Validate a drug name
+
+```bash
+curl -X POST https://drug-interaction-api-mehu.onrender.com/check-drugName \
+  -H "Content-Type: application/json" \
+  -d '{"drug_name":"Aspirin"}'
+```
+
+### 7) Project metadata endpoint
+
+```bash
+curl https://drug-interaction-api-mehu.onrender.com/project
+```
+
+## Supported endpoints
+
+- `GET /` — health/home message
+- `GET /health` — simple status check
+- `GET /drugs` — list all drugs
+- `GET /drugs/{drug_name}` — fetch a specific drug name
+- `GET /search` — filter results using a query parameter
+- `POST /check-interaction` — test a drug pair using JSON body
+- `POST /check-drugName` — validate a name through Pydantic
+- `GET /interactions/{drug_name}` — return related interaction records
+- `GET /project` — dependency injection example
+
 ## Notes
 
-This repo is intended for learning and experimentation with FastAPI fundamentals, request handling, validation with Pydantic, and dependency injection.
+This project is designed for learning and quick API testing, especially for FastAPI basics, path parameters, validation, JSON payloads, and dependency injection.
